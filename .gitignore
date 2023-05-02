@@ -1,0 +1,11 @@
+# PyTorch
+*.pt
+*.pth
+*.pkl
+*.pth.tar
+*.pth.tar.gz
+*.onnx
+
+# Hugging Face
+/.transformers/
+/cache/
