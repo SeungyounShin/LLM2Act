@@ -1,0 +1,91 @@
+Instruction : Write a function to find the minimum cost path to reach (m, n) from (0, 0) for the given cost matrix cost[][] and a position (m, n) in cost[][].
+
+Test Case : 
+assert min_cost([[1, 2, 3], [4, 8, 2], [1, 5, 3]], 2, 2) == 8
+assert min_cost([[2, 3, 4], [5, 9, 3], [2, 6, 4]], 2, 2) == 12
+assert min_cost([[3, 4, 5], [6, 10, 4], [3, 7, 5]], 2, 2) == 16
+
+Think : To find the minimum cost path from (0, 0) to (m, n) in the given cost matrix, we can utilize dynamic programming and the concept of memoization. We'll create a recursive function that calculates the minimum cost to reach each cell, and store the results in a memoization table to avoid redundant computations.
+Action : [Generate Python Code]
+```python
+def min_cost(cost, m, n):
+    memo = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+
+    def calculate_cost(i, j):
+        if i == 0 and j == 0:
+            return cost[0][0]
+        
+        if i < 0 or j < 0:
+            return float('inf')
+
+        if memo[i][j] != -1:
+            return memo[i][j]
+
+        memo[i][j] = cost[i][j] + min(calculate_cost(i-1, j), calculate_cost(i, j-1))
+        return memo[i][j]
+
+    return calculate_cost(m, n)
+```
+Observation :
+Error in file <string> on line 19
+Code at line 19: assert min_cost([[1, 2, 3], [4, 8, 2], [1, 5, 3]], 2, 2) == 8
+
+Think : I think I am not considering the diagonal move, which means you only look for the path from the top or left cells while calculating the minimum cost, which is not completely right according to the problem statement. I needs to consider one more case - moving diagonally up-left (i-1, j-1).
+Action : [Generate Python Code]
+```python
+def min_cost(cost, m, n):
+    memo = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+
+    def calculate_cost(i, j):
+        if i == 0 and j == 0:
+            return cost[0][0]
+        
+        if i < 0 or j < 0:
+            return float('inf')
+
+        if memo[i][j] != -1:
+            return memo[i][j]
+
+        memo[i][j] = cost[i][j] + min(calculate_cost(i-1, j), calculate_cost(i, j-1), calculate_cost(i-1, j-1))
+        return memo[i][j]
+
+    return calculate_cost(m, n)
+```
+Observation :
+No Error
+
+Think : I think I successfully solved the problem. I need to submit the code.
+Action : [FINISH]
+Observation : Success
+
+
+Instruction : Write a function to find the largest integers from a given list of numbers using heap queue algorithm.
+
+Test Case : 
+assert small_nnum([10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100],2)==[10,20]
+assert small_nnum([10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100],5)==[10,20,20,40,50]
+assert small_nnum([10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100],3)==[10,20,20]
+
+Think : The heapq module in Python provides functionality for min heaps, but there isn't a built-in max heap functionality. However, max heap can be achieved by inverting the values when you push them into the heap, so you're effectively storing the negative of each number, then when you pop them out you invert them again to get the original values. We'll use the heapq library to build the heap from the list, then we can pop elements from the heap to get the largest integers.
+Action : [Generate Python Code]
+```python
+def largest_numbers(numbers, n):
+    heap = []
+    for num in numbers:
+        heapq.heappush(heap, -num)
+
+    largest_nums = []
+    for _ in range(n):
+        if heap: # check if heap is not empty
+            largest_nums.append(-heapq.heappop(heap))
+        else:
+            break
+
+    return largest_nums
+```
+Observation :
+No Error
+
+Think : I think I successfully solved the problem. I need to submit the code.
+Action : [FINISH]
+Observation : Success

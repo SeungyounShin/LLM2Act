@@ -1,0 +1,71 @@
+==========
+Instruction : Write a function to find squares of individual elements in a list using lambda function.
+
+Test Case : 
+assert square_nums([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])==[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+assert square_nums([10,20,30])==[100,400,900]
+assert square_nums([12,15])==[144,225]
+
+Think : To square each element in a given list, I can use Python's built-in map function, which applies a given function to each item of an iterable (such as a list). As the function to apply, I can use a lambda function that takes one argument and returns its square. The map function returns a map object, which I will convert to a list using the list function.
+Action : [Generate Python Code]
+```python
+def square_nums(nums):
+    return list(map(lambda x: x ** 2, nums))
+```
+Observation :
+No Error 
+
+Think : I think I succesfully sovle the problem. I need to submit the code.
+Action : [FINISH]
+
+==========
+Instruction : Write a function to find the number of ways to fill it with 2 x 1 dominoes for the given 3 x n board.
+
+Test Case : 
+assert count_ways(2) == 3
+assert count_ways(8) == 153
+assert count_ways(12) == 2131
+
+Think : This problem can be solved using dynamic programming. The key observation is that a 3 x n board can be covered in three ways: 
+1. By placing 3 dominoes vertically.
+2. By placing 1 domino vertically and the other one horizontally on top.
+3. By placing 1 domino vertically and the other one horizontally on the bottom.
+So, the recursive relation can be defined as dp[n] = dp[n-1] + 2*dp[n-2] (accounting for three ways to fill the 3 x n board).
+Action : [Generate Python Code]
+```python
+def count_ways(n):
+    dp = [0 for _ in range(n+1)]
+    dp[0] = 1
+    dp[1] = 0
+    for i in range(2, n+1):
+        dp[i] = dp[i-1] + 2*dp[i-2]
+    return dp[n]
+```
+Observation :
+Error in file <string> on line 9
+Code at line 9: assert count_ways(2) == 3
+
+Think : This problem of tiling a 3 x n board with 2 x 1 tiles can be solved using dynamic programming. We maintain two arrays A and B, where A[i] represents the number of ways to completely fill up to the i-th column, and B[i] represents the ways to fill up to the i-th column with the middle cell empty. For each column, we can either place two vertical tiles or extend by one horizontal tile from the previous column. The states and transitions can be calculated as:
+A[i] = A[i-2] + 2 * B[i-1] : (Two vertical tiles or a horizontal tile on top of an empty middle cell)
+B[i] = A[i-1] + B[i-2] : (One vertical tile on the empty middle cell or two horizontal tiles)
+Action : [Generate Python Code]
+```python
+def count_ways(n):
+    A = [0] * (n + 1) 
+    B = [0] * (n + 1) 
+    A[0] = 1
+    A[1] = 0
+    B[0] = 0
+    B[1] = 1
+    for i in range(2, n+1):
+            A[i] = A[i - 2] + 2 * B[i - 1] 
+            B[i] = A[i - 1] + B[i - 2] 
+    return A[n]
+```
+Observation :
+No Error 
+
+Think : I think I succesfully sovle the problem. I need to submit the code.
+Action : [FINISH]
+
+==========
