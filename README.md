@@ -43,3 +43,12 @@ curl -X GET "https://datasets-server.huggingface.co/splits?dataset=mbpp"
 | webshop-fever-mbpp | 50 0.6726 0.38       |
 
 (1): base-model(llama7B) InstructGPT 로 0-500까지의 webshop train demo 를 react 방식 prompt로 모으고 여기서 1.0 의 reward 를 받은 173개의 데이터를 instruction 부분만 나머지 모든 demo(action, obs) 를 모두 SFT 훈련을함. temperature 0.2 top_p 0.8 에서 sampling.
+
+# Agent Self Play
+
+| original model   | method     | SR                  |
+| ---------------- | ---------- | ------------------- |
+| llama7B-SFT Chat | SFT-2000   | 50 0.675 0.44 0.0   |
+| llama7B-SFT Chat | RL-dense   | 0.42                |
+| llama7B-SFT Chat | RL-sparse  | 0.4                 |
+
